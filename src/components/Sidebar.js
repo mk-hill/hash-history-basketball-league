@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, Route } from 'react-router-dom';
 import slug from 'slug';
 
-Sidebar.PropTypes = {
+Sidebar.propTypes = {
   title: PropTypes.string.isRequired,
   list: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
