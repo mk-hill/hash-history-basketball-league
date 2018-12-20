@@ -1,11 +1,56 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './Home';
-import Players from './Players';
-import Teams from './Teams';
 import Navbar from './Navbar';
-import TeamPage from './TeamPage';
-import Articles from './Articles';
+import Loading from './Loading';
+import DynamicImport from './DynamicImport';
+
+function createDynamicComponents(componentNames) {
+  const createComponent = name => props => (
+    <DynamicImport load={() => import(`./${name}`)}>
+      {Component => (!Component ? <Loading /> : <Component {...props} />)}
+    </DynamicImport>
+  );
+  // Create variables with same name here in module scope directly?
+  return componentNames.map(name => createComponent(name));
+}
+
+const [Home, Players, Teams, TeamPage, Articles] = createDynamicComponents([
+  'Home',
+  'Players',
+  'Teams',
+  'TeamPage',
+  'Articles',
+]);
+
+// const Home = props => (
+//   <DynamicImport load={() => import('./Home')}>
+//     {Component => (!Component ? <Loading /> : <Component {...props} />)}
+//   </DynamicImport>
+// );
+
+// const Players = props => (
+//   <DynamicImport load={() => import('./Players')}>
+//     {Component => (!Component ? <Loading /> : <Component {...props} />)}
+//   </DynamicImport>
+// );
+
+// const Teams = props => (
+//   <DynamicImport load={() => import('./Teams')}>
+//     {Component => (!Component ? <Loading /> : <Component {...props} />)}
+//   </DynamicImport>
+// );
+
+// const TeamPage = props => (
+//   <DynamicImport load={() => import('./TeamPage')}>
+//     {Component => (!Component ? <Loading /> : <Component {...props} />)}
+//   </DynamicImport>
+// );
+
+// const Articles = props => (
+//   <DynamicImport load={() => import('./Articles')}>
+//     {Component => (!Component ? <Loading /> : <Component {...props} />)}
+//   </DynamicImport>
+// );
 
 class App extends Component {
   render() {
