@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Article from './Article';
 import { getTeamsArticles } from '../api';
+import Loading from './Loading';
 
 class Articles extends Component {
   state = {
@@ -25,7 +26,7 @@ class Articles extends Component {
     const { teamId } = params;
 
     return loading ? (
-      <h1>Loading</h1>
+      <Loading />
     ) : (
       <div className="container two-column">
         <Sidebar
@@ -40,7 +41,7 @@ class Articles extends Component {
             <Article articleId={match.params.articleId} teamId={teamId}>
               {article =>
                 !article ? (
-                  <h1>Loading</h1>
+                  <Loading />
                 ) : (
                   <div className="panel">
                     <article className="article" key={article.id}>

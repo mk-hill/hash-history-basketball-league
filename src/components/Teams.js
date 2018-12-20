@@ -4,6 +4,7 @@ import { getTeamNames } from '../api';
 import { Route, Link } from 'react-router-dom';
 import TeamLogo from './TeamLogo';
 import Team from './Team';
+import Loading from './Loading';
 
 class Teams extends Component {
   state = {
@@ -41,7 +42,7 @@ class Teams extends Component {
               <Team id={match.params.teamId}>
                 {team =>
                   team === null ? (
-                    <h1>Loading</h1>
+                    <Loading />
                   ) : (
                     <div style={{ width: '100%' }}>
                       <TeamLogo id={team.id} className="center" />
